@@ -1,0 +1,25 @@
+{
+    "name": "dryyun/express_info",
+    "description": "get express info",
+    "keywords": [
+        "chinese",
+        "express"
+    ],
+    "homepage": "https://github.com/dryyun/express_info",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "dryyun",
+            "email": "dryyun@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dryyun\\ExpressInfo\\": "src/"
+        }
+    }
+}
