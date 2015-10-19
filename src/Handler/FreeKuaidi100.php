@@ -26,10 +26,11 @@ class FreeKuaidi100
         try {
             $client = new \GuzzleHttp\Client();
 
-            $response = $client->request('GET', $url, array(
+            $request = $client->createRequest('GET', $url, array(
                 'timeout' => 3,
             ));
 
+            $response = $client->send($request);
             $string = $response->getBody();
             if (json_decode($string)) {
                 return json_decode($string, true);
@@ -46,10 +47,10 @@ class FreeKuaidi100
         try {
             $client = new \GuzzleHttp\Client();
 
-            $response = $client->request('GET', $url, array(
+            $request = $client->createRequest('GET', $url, array(
                 'timeout' => 3,
             ));
-
+            $response = $client->send($request);
             $string = $response->getBody();
             if (json_decode($string)) {
                 return json_decode($string, true);
