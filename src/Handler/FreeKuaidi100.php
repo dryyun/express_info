@@ -9,21 +9,50 @@ namespace Dryyun\ExpressInfo\Handler;
 
 class FreeKuaidi100
 {
+    public static function expressInfo($expressNu)
+    {
+        $comName = self::expressComName($expressNu);
+        count($comName) > 1 && $comName = $comName[0];
+        if ($comName && isset($comName['comCode']) && $comName['comCode']) {
+            $info = self::expressGet($comName['comCode'], $expressNu);
+            return $info;
+        }
+        return array();
+    }
+
+    public static function expressGet($com, $expressNu)
+    {
+        $url = "http://www.kuaidi100.com/query?type={$com}&postid={$expressNu}";
+        try {
+            $client = new \GuzzleHttp\Client();
+
+            $response = $client->request('GET', $url, array(
+                'timeout' => 3,
+            ));
+
+            $string = $response->getBody();
+            if (json_decode($string)) {
+                return json_decode($string, true);
+            }
+            return array();
+        } catch (\Exception $e) {
+            return array();
+        }
+    }
+
     public static function  expressComName($expressNu)
     {
         $url = "http://www.kuaidi100.com/autonumber/auto?num={$expressNu}";
         try {
             $client = new \GuzzleHttp\Client();
-            print_r($client);exit;
+
             $response = $client->request('GET', $url, array(
-                'timeout' => 10,
+                'timeout' => 3,
             ));
-//            $response = $client->send($request);
-            $json = $response->
-            print_r($json);
-            exit;
-            if ($json['status'] == 200) {
-                return $json;
+
+            $string = $response->getBody();
+            if (json_decode($string)) {
+                return json_decode($string, true);
             }
             return array();
         } catch (\Exception $e) {
