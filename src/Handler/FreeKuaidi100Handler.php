@@ -3,11 +3,11 @@
  * 免费的快递100接口
  * User: dryyun
  * Time: 2015/10/19 16:39
- * File: FreeKuaidi100.php
+ * File: FreeKuaidi100Handler.php
  */
 namespace Dryyun\ExpressInfo\Handler;
 
-class FreeKuaidi100 extends AbstractHandler
+class FreeKuaidi100Handler extends AbstractHandler
 {
     private $expressData = array();
 
