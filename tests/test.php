@@ -6,10 +6,10 @@
  */
 require '../vendor/autoload.php';
 
-$a = new Dryyun\ExpressInfo\Handler\FreeKuaidi100Handler();
-$b = $a->expressComName('920416825501');
+$a = new Dryyun\ExpressInfo\Handler\JuheKuaidiHandler();
+//$b = $a->expressComName('920416825501');
 
-$code = $a->getComCode($b);
+//$code = $a->getComCode($b);
 
 $info = $a->getExpressInfo($code, '920416825501');
 
