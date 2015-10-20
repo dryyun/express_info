@@ -7,11 +7,14 @@
 require '../vendor/autoload.php';
 
 $a = new Dryyun\ExpressInfo\Handler\FreeKuaidi100Handler();
-$b = $a->expressComName('912956448873');
+$b = $a->expressComName('920416825501');
 
 $code = $a->getComCode($b);
-//    exit;;
+
 $info = $a->getExpressInfo($code, '920416825501');
+
+$info = $a->formatExpressData($info);
+
 print_r($info);
 echo 'aaa';
 exit;

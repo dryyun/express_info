@@ -71,7 +71,26 @@ class FreeKuaidi100Handler extends AbstractHandler
      */
     public function formatExpressData($expressData)
     {
-
+        if (isset($expressData['status']) && $expressData['status'] == 200) {
+            return array(
+                'status' => 200,
+                'message' => 'ok',
+                'nu' => $expressData['nu'],
+                'com' => $expressData['com'],
+                'state' => $expressData['state'],
+                'data' => $expressData['data']
+            );
+        } elseif (isset($expressData['status'])) {
+            return array(
+                'status' => (int)$expressData['status'],
+                'message' => isset($expressData['message']) ? $expressData['message'] : null,
+            );
+        } else {
+            return array(
+                'status' => 505,
+                'message' => '服务器不给力，请稍后再试',
+            );
+        }
     }
-
 }
+

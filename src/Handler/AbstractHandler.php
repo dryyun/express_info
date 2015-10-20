@@ -11,7 +11,7 @@ abstract class AbstractHandler implements HandlerInterface
     public function getContent($url, array $params = array(), $timeout = 3, $method = 'GET')
     {
         $curl = curl_init();
-        if (strtoupper($method) == 'GET') {
+        if (strtoupper($method) == 'GET' && $params) {
             $url = $url . '?' . http_build_query($params);
         }
         curl_setopt($curl, CURLOPT_URL, $url);
