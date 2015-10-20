@@ -3,7 +3,8 @@
     "description": "get express info",
     "keywords": [
         "chinese",
-        "express"
+        "express",
+        "kuaidi100"
     ],
     "homepage": "https://github.com/dryyun/express_info",
     "license": "MIT",
@@ -15,7 +16,6 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "guzzlehttp/guzzle": "~5.0"
     },
     "autoload": {
         "psr-4": {

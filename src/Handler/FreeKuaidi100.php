@@ -7,57 +7,71 @@
  */
 namespace Dryyun\ExpressInfo\Handler;
 
-class FreeKuaidi100
+class FreeKuaidi100 extends AbstractHandler
 {
-    public static function expressInfo($expressNu)
+    private $expressData = array();
+
+    public function __construct()
     {
-        $comName = self::expressComName($expressNu);
-        count($comName) > 1 && $comName = $comName[0];
-        if ($comName && isset($comName['comCode']) && $comName['comCode']) {
-            $info = self::expressGet($comName['comCode'], $expressNu);
-            return $info;
+
+    }
+
+    /**
+     * 根据物流号获取快递公司代码信息
+     * @param $expressNu
+     * @return array|mixed
+     */
+    public function expressComName($expressNu)
+    {
+        $url = "http://www.kuaidi100.com/autonumber/auto?num={$expressNu}";
+
+        $comInfo = $this->getContent($url);
+
+        if ($comInfo && json_decode($comInfo)) {
+            return json_decode($comInfo, true);
         }
         return array();
     }
 
-    public static function expressGet($com, $expressNu)
+    public function getComCode(array $comNameInfo)
     {
-        $url = "http://www.kuaidi100.com/query?type={$com}&postid={$expressNu}";
-        try {
-            $client = new \GuzzleHttp\Client();
-
-            $request = $client->createRequest('GET', $url, array(
-                'timeout' => 3,
-            ));
-
-            $response = $client->send($request);
-            $string = $response->getBody();
-            if (json_decode($string)) {
-                return json_decode($string, true);
-            }
-            return array();
-        } catch (\Exception $e) {
-            return array();
+        $code = null;
+        if ($comNameInfo) {
+            count($comNameInfo) >= 1 && $comNameInfo = $comNameInfo[0];
+            isset($comNameInfo['comCode']) && $code = $comNameInfo['comCode'];
         }
+        return $code;
     }
 
-    public static function  expressComName($expressNu)
+    /**
+     * 获取快递信息
+     * @param $comeCode 快递公司code
+     * @param $expressNu 快递物流单号
+     * @return array 快递信息的数组
+     */
+    public function getExpressInfo($comeCode, $expressNu)
     {
-        $url = "http://www.kuaidi100.com/autonumber/auto?num={$expressNu}";
-        try {
-            $client = new \GuzzleHttp\Client();
+        if ($comeCode && $expressNu) {
+            $url = "http://www.kuaidi100.com/query?type={$comeCode}&postid={$expressNu}";
 
-            $request = $client->createRequest('GET', $url, array(
-                'timeout' => 3,
-            ));
-            $response = $client->send($request);
-            $string = $response->getBody();
-            if (json_decode($string)) {
-                return json_decode($string, true);
+            $info = $this->getContent($url);
+
+            if ($info && json_decode($info)) {
+                $this->expressData = json_decode($info, true);
             }
-            return array();
-        } catch (\Exception $e) {
-            return array();
+            return $this->expressData;
         }
+        return array();
     }
+
+    /**
+     * 格式化快递数据
+     * @param $expressData
+     * @return array
+     */
+    public function formatExpressData($expressData)
+    {
+
+    }
+
 }
