@@ -6,17 +6,9 @@
  */
 require '../vendor/autoload.php';
 
-$a = new Dryyun\ExpressInfo\Handler\JuheKuaidiHandler();
-//$b = $a->expressComName('920416825501');
+$key = '***';
+$a = new Dryyun\ExpressInfo\Handler\JuheKuaidiHandler($key);
 
-//$code = $a->getComCode($b);
-
-$info = $a->getExpressInfo($code, '920416825501');
-
-$info = $a->formatExpressData($info);
-
-print_r($info);
-echo 'aaa';
-exit;
-$a = \Dryyun\ExpressInfo\Handler\FreeKuaidi100::expressInfo('920416825510');
-var_dump($a);
+$f=$a->getExpressInfo('sf','210180976757');
+$aca=$a->formatExpressData($f);
+print_r($aca);

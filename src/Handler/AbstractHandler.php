@@ -8,7 +8,7 @@ namespace Dryyun\ExpressInfo\Handler;
 
 abstract class AbstractHandler implements HandlerInterface
 {
-    public function getContent($url, array $params = array(), $timeout = 3, $method = 'GET')
+    protected function getContent($url, array $params = array(), $timeout = 3, $method = 'GET')
     {
         $curl = curl_init();
         if (strtoupper($method) == 'GET' && $params) {
